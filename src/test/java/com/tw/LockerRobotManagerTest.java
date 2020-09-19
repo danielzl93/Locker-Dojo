@@ -28,7 +28,18 @@ public class LockerRobotManagerTest {
         for (int i = 0; i < Size.SMALL.capacity; i++) {
             manager.store(new Bag(Size.SMALL));
         }
-        manager.store(new Bag(Size.SMALL));
 
+        manager.store(new Bag(Size.SMALL));
+    }
+
+    @Test(expected = LockerIsFullException.class)
+    public void should_throw_full_when_manager_save_bag_given_primaryRobot_locker_full_and_medium_bag() {
+        StorableFactory factory = new StorableFactory();
+        LockerRobotManager manager = factory.createManager();
+        for (int i = 0; i < Size.MEDIUM.capacity * 2; i++) {
+            manager.store(new Bag(Size.MEDIUM));
+        }
+
+        manager.store(new Bag(Size.MEDIUM));
     }
 }
