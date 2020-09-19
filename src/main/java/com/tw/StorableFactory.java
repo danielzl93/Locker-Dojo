@@ -1,6 +1,7 @@
 package com.tw;
 
 import com.tw.robot.PrimaryLockerRobot;
+import com.tw.robot.SuperLockerRobot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +9,13 @@ import java.util.List;
 public class StorableFactory {
     public Storable createStorable(Size size, int numberOfLockers){
         List<Locker> lockers = new ArrayList<>();
+        for (int i = 0; i < numberOfLockers; i++) {
+            lockers.add(new Locker(size));
+        }
         switch (size){
             case Large:
-                return new Locker(Size.SMALL);
+                return new SuperLockerRobot(lockers);
             case MEDIUM:
-                for (int i = 0; i < numberOfLockers; i++) {
-                    lockers.add(new Locker(size));
-                }
                 return new PrimaryLockerRobot(lockers);
             case SMALL:
                 return createStorable(size);

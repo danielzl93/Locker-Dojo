@@ -16,3 +16,12 @@
 4. Given robot管理多个中型locker，例如两个locker，拿到一张有效的票; When robot取包; Then 取包成功
 5. Given robot管理多个中型locker，例如两个locker，拿到一张无效票; When robot取包; Then 取包失败，无效票据异常
 6. Given robot管理多个中型locker，例如两个locker，拿到一张非中型locker的票; When robot取包; Then 取包失败，票据型号不符异常
+
+## smartLockerRobot
+
+1. Given robot管理两个locker，第一个locker剩余容量为3，第二个剩余容量为2; When robot存包，Then 成功存入第一个locker，返回票据
+2. Given robot管理两个locker，第一个locker剩余容量为2，第二个剩余容量为3; When robot存包，Then 成功存入第二个locker，返回票据
+3. Given robot管理两个locker，剩余容量都为2; When robot存包，Then 成功存入第一个locker，返回票据
+4. Given robot管理两个locker，且两个locker都存满了; When robot存包，Then 存包失败，提示locker已满
+5. Given robot管理两个locker，且拿到有效票; When robot取包，Then 取包成功
+6. Given robot管理两个locker，且拿到伪造票; When robot取包，Then 取包失败，提示非法票据

@@ -54,4 +54,9 @@ public class Locker implements Storable {
     public boolean containBag(Bag bag) {
         return ticketPackageMap.containsValue(bag);
     }
+
+    public double getIdealRate() {
+        double freeCapacity = this.size.capacity - ticketPackageMap.size();
+        return  freeCapacity / this.size.capacity;
+    }
 }
