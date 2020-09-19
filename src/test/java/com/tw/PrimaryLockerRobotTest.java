@@ -49,4 +49,17 @@ public class PrimaryLockerRobotTest {
         Bag expectBag = new Bag(Size.MEDIUM);
         robot.store(expectBag);
     }
+
+    //Given robot管理多个中型locker，例如两个locker，拿到一张有效的票; When robot取包; Then 取包成功
+    @Test
+    public void should_return_bag_when_robot_pickup_bag_given_valid_ticket() {
+        StorableFactory factory = new StorableFactory();
+        PrimaryLockerRobot robot = (PrimaryLockerRobot) factory.createStorable(Size.MEDIUM, 2);
+
+        Bag expectBag = new Bag(Size.MEDIUM);
+        Ticket ticket = robot.store(expectBag);
+
+        assertEquals(expectBag, robot.pickup(ticket));
+    }
+
 }
