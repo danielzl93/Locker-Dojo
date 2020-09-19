@@ -8,7 +8,6 @@ import com.tw.exception.IncompatibleTicketTypeException;
 import com.tw.exception.InvalidTicketException;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 public abstract class LockerRobot implements Storable {
     final List<Locker> lockers;
@@ -27,7 +26,7 @@ public abstract class LockerRobot implements Storable {
                 throw new IncompatibleTicketTypeException();
             }
 
-            if (locker.contains(ticket)) {
+            if (locker.containTicket(ticket)) {
                 return locker.pickup(ticket);
             }
         }
@@ -39,7 +38,7 @@ public abstract class LockerRobot implements Storable {
         return lockers.stream().allMatch(Locker::isFull);
     }
 
-    public boolean contains(Ticket ticket) {
-        return lockers.stream().anyMatch(locker -> locker.contains(ticket));
+    public List<Locker> getLockers() {
+        return lockers;
     }
 }

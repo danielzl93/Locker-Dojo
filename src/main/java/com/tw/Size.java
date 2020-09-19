@@ -1,6 +1,6 @@
 package com.tw;
 
-enum Size {
+public enum Size {
     SMALL(5), MEDIUM(15), Large(30);
 
     int capacity;

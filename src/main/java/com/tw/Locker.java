@@ -31,7 +31,7 @@ public class Locker implements Storable {
             throw new IncompatibleTicketTypeException();
         }
 
-        if (ticketPackageMap.containsKey(ticket)) {
+        if (containTicket(ticket)) {
             return ticketPackageMap.remove(ticket);
         }
         throw new InvalidTicketException();
@@ -47,7 +47,11 @@ public class Locker implements Storable {
         return ticketPackageMap.size() == this.size.capacity;
     }
 
-    public boolean contains(Ticket ticket) {
+    public boolean containTicket(Ticket ticket) {
         return ticketPackageMap.containsKey(ticket);
+    }
+
+    public boolean containBag(Bag bag) {
+        return ticketPackageMap.containsValue(bag);
     }
 }
