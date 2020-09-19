@@ -4,46 +4,28 @@ import com.tw.exception.InvalidTicketException;
 import com.tw.exception.LockerIsFullException;
 
 import java.util.HashMap;
+import java.util.Map;
+
+enum Size {
+    SMALL,
+    MEDIUM,
+    Large
+}
 
 public class Locker implements Storable {
-    private int availableCapacity;
-    private HashMap<Ticket, Bag> savedBags = new HashMap<>();
+    private final int capacity;
+    private final Size size;
+    private final Map<Ticket, Bag> ticketPackageMap = new HashMap<>();
 
-    public Locker(int capacity) {
-        this.availableCapacity = capacity;
+    public Locker(int capacity, Size size) {
+        this.capacity = capacity;
+        this.size = size;
     }
 
     @Override
-    public Ticket save(Bag bag) {
-        if (availableCapacity <= 0) {
-            throw new LockerIsFullException();
-        }
+    public Ticket store(Bag bag) {
         Ticket ticket = new Ticket();
-        savedBags.put(ticket, bag);
-        availableCapacity--;
+        ticketPackageMap.put(ticket, bag);
         return ticket;
-    }
-
-    @Override
-    public Bag pickUp(Ticket ticket) {
-        Bag bag = savedBags.remove(ticket);
-        if (bag == null) {
-            throw new InvalidTicketException();
-        }
-        return bag;
-    }
-
-    @Override
-    public boolean isFull() {
-        return availableCapacity == 0;
-    }
-
-    @Override
-    public boolean contains(Ticket ticket) {
-        return savedBags.containsKey(ticket);
-    }
-
-    public int getAvailableCapacity() {
-        return availableCapacity;
     }
 }

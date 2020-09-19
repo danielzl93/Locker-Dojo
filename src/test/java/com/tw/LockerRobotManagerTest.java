@@ -2,8 +2,6 @@ package com.tw;
 
 import com.tw.exception.InvalidTicketException;
 import com.tw.exception.LockerIsFullException;
-import com.tw.robot.PrimaryLockerRobot;
-import com.tw.robot.SmartLockerRobot;
 import org.junit.Test;
 
 import static java.util.Arrays.asList;
