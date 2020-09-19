@@ -7,19 +7,11 @@ import com.tw.exception.LockerIsFullException;
 import java.util.HashMap;
 import java.util.Map;
 
-enum Size {
-    SMALL,
-    MEDIUM,
-    Large
-}
-
 public class Locker implements Storable {
-    private final int capacity;
     private final Size size;
     private final Map<Ticket, Bag> ticketPackageMap = new HashMap<>();
 
-    public Locker(int capacity, Size size) {
-        this.capacity = capacity;
+    public Locker(Size size) {
         this.size = size;
     }
 
@@ -46,8 +38,16 @@ public class Locker implements Storable {
 
     }
 
+    public Size getSize() {
+        return size;
+    }
+
     @Override
     public boolean isFull() {
-        return ticketPackageMap.size() == this.capacity;
+        return ticketPackageMap.size() == this.size.capacity;
+    }
+
+    public boolean contains(Ticket ticket) {
+        return ticketPackageMap.containsKey(ticket);
     }
 }

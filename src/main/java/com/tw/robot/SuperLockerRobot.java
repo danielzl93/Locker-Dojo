@@ -6,7 +6,7 @@ import com.tw.Ticket;
 
 import java.util.List;
 
-//public class SmartLockerRobot extends LockerRobot {
+//public class SuperLockerRobot extends LockerRobot {
 //
 //    public SmartLockerRobot(List<Locker> lockers) {
 //        super(lockers);
