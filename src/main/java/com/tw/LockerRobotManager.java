@@ -18,46 +18,37 @@ public class LockerRobotManager {
     }
 
     public Ticket store(Bag bag) {
+        Optional<Storable> optionalStorable = Optional.empty();
         switch (bag.getSize()){
             case Large:
-                Optional<Storable> optionalStorable = storables.stream()
+                optionalStorable = storables.stream()
                         .filter(storable -> storable instanceof SuperLockerRobot && !storable.isFull())
                         .findFirst();
-                if (optionalStorable.isPresent()) {
-                    return optionalStorable.get().store(bag);
-                }
                 break;
             case MEDIUM:
                 optionalStorable = storables.stream()
                         .filter(storable -> storable instanceof PrimaryLockerRobot && !storable.isFull())
                         .findFirst();
-                if (optionalStorable.isPresent()) {
-                    return optionalStorable.get().store(bag);
-                }
                 break;
             case SMALL:
                 optionalStorable = storables.stream()
                         .filter(storable -> storable instanceof Locker && !storable.isFull())
                         .findFirst();
-                if (optionalStorable.isPresent()) {
-                    return optionalStorable.get().store(bag);
-                }
                 break;
+        }
+        if (optionalStorable.isPresent()) {
+            return optionalStorable.get().store(bag);
         }
 
         throw new LockerIsFullException();
     }
 
-    public Bag pickUp(Ticket ticket) {
+    public Bag pickup(Ticket ticket) {
         for (Storable storable : storables) {
             if (storable.containTicket(ticket)) {
                 return storable.pickup(ticket);
             }
         }
         throw new InvalidTicketException();
-    }
-
-    public List<Storable> getStorables() {
-        return storables;
     }
 }

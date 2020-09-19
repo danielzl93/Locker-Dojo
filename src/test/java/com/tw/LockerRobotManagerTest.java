@@ -2,11 +2,7 @@ package com.tw;
 
 import com.tw.exception.InvalidTicketException;
 import com.tw.exception.LockerIsFullException;
-import com.tw.robot.PrimaryLockerRobot;
 import org.junit.Test;
-
-import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
 import static org.junit.Assert.*;
 
 public class LockerRobotManagerTest {
@@ -52,5 +48,26 @@ public class LockerRobotManagerTest {
         }
 
         manager.store(new Bag(Size.Large));
+    }
+
+    @Test
+    public void should_return_bag_when_manager_pickup_bag_given_valid_ticket() {
+        StorableFactory factory = new StorableFactory();
+        LockerRobotManager manager = factory.createManager();
+
+        Bag expectBag = new Bag(Size.Large);
+        Ticket ticket = manager.store(expectBag);
+
+        assertEquals(expectBag, manager.pickup(ticket));
+    }
+
+    @Test(expected = InvalidTicketException.class)
+    public void should_throw_invalid_ticket_when_robot_pickup_bag_given_invalid_ticket() {
+        StorableFactory factory = new StorableFactory();
+        LockerRobotManager manager = factory.createManager();
+
+        Ticket ticket = new Ticket(Size.Large);
+
+        manager.pickup(ticket);
     }
 }

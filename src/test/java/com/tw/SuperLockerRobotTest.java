@@ -1,12 +1,8 @@
 package com.tw;
 
-import com.tw.Bag;
-import com.tw.Locker;
-import com.tw.Ticket;
 import com.tw.exception.IncompatibleTicketTypeException;
 import com.tw.exception.InvalidTicketException;
 import com.tw.exception.LockerIsFullException;
-import com.tw.robot.PrimaryLockerRobot;
 import com.tw.robot.SuperLockerRobot;
 import org.junit.Test;
 import static org.junit.Assert.*;
