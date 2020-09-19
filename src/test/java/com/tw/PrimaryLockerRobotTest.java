@@ -71,4 +71,14 @@ public class PrimaryLockerRobotTest {
 
         robot.pickup(ticket);
     }
+
+    @Test(expected = InvalidTicketException.class)
+    public void should_throw_invalid_ticket_when_robot_pickup_bag_given_invalid_ticket() {
+        StorableFactory factory = new StorableFactory();
+        PrimaryLockerRobot robot = (PrimaryLockerRobot) factory.createStorable(Size.MEDIUM, 2);
+
+        Ticket ticket = new Ticket(Size.MEDIUM);
+
+        robot.pickup(ticket);
+    }
 }
