@@ -3,6 +3,7 @@ package com.tw;
 import com.tw.exception.InvalidTicketException;
 import com.tw.exception.LockerIsFullException;
 
+import java.lang.annotation.IncompleteAnnotationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,9 +28,19 @@ public class Locker implements Storable {
         if (isFull()) {
             throw new LockerIsFullException();
         }
-        Ticket ticket = new Ticket();
+        Ticket ticket = new Ticket(this.size);
         ticketPackageMap.put(ticket, bag);
         return ticket;
+    }
+
+    @Override
+    public Bag pickup(Ticket ticket) {
+
+        if (ticketPackageMap.containsKey(ticket)) {
+            return ticketPackageMap.remove(ticket);
+        }
+        throw new InvalidTicketException();
+
     }
 
     @Override
