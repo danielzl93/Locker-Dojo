@@ -1,5 +1,6 @@
 package com.tw;
 
+import com.tw.exception.IncompatibleTicketTypeException;
 import com.tw.exception.InvalidTicketException;
 import com.tw.exception.LockerIsFullException;
 import com.tw.robot.PrimaryLockerRobot;
@@ -50,7 +51,6 @@ public class PrimaryLockerRobotTest {
         robot.store(expectBag);
     }
 
-    //Given robot管理多个中型locker，例如两个locker，拿到一张有效的票; When robot取包; Then 取包成功
     @Test
     public void should_return_bag_when_robot_pickup_bag_given_valid_ticket() {
         StorableFactory factory = new StorableFactory();
@@ -62,4 +62,13 @@ public class PrimaryLockerRobotTest {
         assertEquals(expectBag, robot.pickup(ticket));
     }
 
+    @Test(expected = IncompatibleTicketTypeException.class)
+    public void should_throw_incompatible_when_robot_pickup_bag_given_ticket_size_incompatible_not_medium() {
+        StorableFactory factory = new StorableFactory();
+        PrimaryLockerRobot robot = (PrimaryLockerRobot) factory.createStorable(Size.MEDIUM, 2);
+
+        Ticket ticket = new Ticket(Size.SMALL);
+
+        robot.pickup(ticket);
+    }
 }
