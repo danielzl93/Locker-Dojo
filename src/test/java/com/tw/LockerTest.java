@@ -1,5 +1,6 @@
 package com.tw;
 
+import com.tw.exception.IncompatibleTicketTypeException;
 import com.tw.exception.InvalidTicketException;
 import com.tw.exception.LockerIsFullException;
 import org.junit.Assert;
@@ -33,5 +34,23 @@ public class LockerTest {
         Ticket ticket = locker.store(bag);
 
         assertEquals(bag, locker.pickup(ticket));
+    }
+
+    @Test(expected = IncompatibleTicketTypeException.class)
+    public void should_throw_incompatible_when_locker_pickup_bag_given_ticket_size_incompatible_with_locker_size() {
+        Locker locker = new Locker(10, Size.SMALL);
+
+        Ticket ticket = new Ticket(Size.Large);
+
+        locker.pickup(ticket);
+    }
+
+    @Test(expected = InvalidTicketException.class)
+    public void should_throw_invalid_ticket_when_locker_pickup_bag_given_invalid_ticket() {
+        Locker locker = new Locker(10, Size.SMALL);
+
+        Ticket ticket = new Ticket(Size.SMALL);
+
+        locker.pickup(ticket);
     }
 }

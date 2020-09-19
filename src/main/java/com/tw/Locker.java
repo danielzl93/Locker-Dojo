@@ -1,9 +1,9 @@
 package com.tw;
 
+import com.tw.exception.IncompatibleTicketTypeException;
 import com.tw.exception.InvalidTicketException;
 import com.tw.exception.LockerIsFullException;
 
-import java.lang.annotation.IncompleteAnnotationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +35,9 @@ public class Locker implements Storable {
 
     @Override
     public Bag pickup(Ticket ticket) {
+        if (ticket.getSize() != this.size) {
+            throw new IncompatibleTicketTypeException();
+        }
 
         if (ticketPackageMap.containsKey(ticket)) {
             return ticketPackageMap.remove(ticket);
