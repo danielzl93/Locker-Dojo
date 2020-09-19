@@ -41,4 +41,9 @@ public abstract class LockerRobot implements Storable {
     public List<Locker> getLockers() {
         return lockers;
     }
+
+    @Override
+    public boolean containTicket(Ticket ticket) {
+        return lockers.stream().anyMatch(locker -> locker.containTicket(ticket));
+    }
 }

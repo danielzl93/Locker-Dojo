@@ -25,3 +25,10 @@
 4. Given robot管理多个大型locker，例如两个locker，拿到一张有效的票; When robot取包; Then 取包成功
 5. Given robot管理多个大型locker，例如两个locker，拿到一张无效票; When robot取包; Then 取包失败，无效票据异常
 6. Given robot管理多个大型locker，例如两个locker，拿到一张非中型locker的票; When robot取包; Then 取包失败，票据型号不符异常
+
+## lockerRobotManager
+1. Given manager管理储存设备，例如一个locker，一个primaryLockerRobot，一个superLockerRobot，均有可用容量 When manager存包，Then 存包成功，返回票据
+2. Given manager管理储存设备，例如一个locker，一个primaryLockerRobot，一个superLockerRobot，有些设备无可用容量 When manager存包，Then 存包成功，存放至有可用容量的设备返回票据
+3. Given manager管理储存设备，例如一个locker，一个primaryLockerRobot，一个superLockerRobot，都存满了，When manager存包，Then 存包失败，提示locker已满
+4. Given manager管理储存设备，例如一个locker，一个primaryLockerRobot，一个superLockerRobot，拿到一张有效的票; When manager取包; Then 取包成功
+5. Given manager管理储存设备，例如一个locker，一个primaryLockerRobot，一个superLockerRobot，拿到一张无效票; When manager取包; Then 取包失败，无效票据异常

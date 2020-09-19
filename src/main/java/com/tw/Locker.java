@@ -47,6 +47,7 @@ public class Locker implements Storable {
         return ticketPackageMap.size() == this.size.capacity;
     }
 
+    @Override
     public boolean containTicket(Ticket ticket) {
         return ticketPackageMap.containsKey(ticket);
     }
