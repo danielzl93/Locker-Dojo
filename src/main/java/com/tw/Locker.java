@@ -24,8 +24,16 @@ public class Locker implements Storable {
 
     @Override
     public Ticket store(Bag bag) {
+        if (isFull()) {
+            throw new LockerIsFullException();
+        }
         Ticket ticket = new Ticket();
         ticketPackageMap.put(ticket, bag);
         return ticket;
+    }
+
+    @Override
+    public boolean isFull() {
+        return ticketPackageMap.size() == this.capacity;
     }
 }
