@@ -36,4 +36,17 @@ public class PrimaryLockerRobotTest {
         assertFalse(robot.getLockers().get(0).containBag(expectBag));
         assertTrue(robot.getLockers().get(1).containBag(expectBag));
     }
+
+    @Test(expected = LockerIsFullException.class)
+    public void should_throw_full_when_robot_save_bag_given_lockers_are_full() {
+        StorableFactory factory = new StorableFactory();
+        PrimaryLockerRobot robot = (PrimaryLockerRobot) factory.createStorable(Size.MEDIUM, 2);
+
+        for (int i = 0; i < Size.MEDIUM.capacity * 2; i++) {
+            robot.store(new Bag(Size.MEDIUM));
+        }
+
+        Bag expectBag = new Bag(Size.MEDIUM);
+        robot.store(expectBag);
+    }
 }
