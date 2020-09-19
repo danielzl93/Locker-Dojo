@@ -3,6 +3,7 @@ package com.tw;
 import com.tw.Bag;
 import com.tw.Locker;
 import com.tw.Ticket;
+import com.tw.exception.IncompatibleTicketTypeException;
 import com.tw.exception.InvalidTicketException;
 import com.tw.exception.LockerIsFullException;
 import com.tw.robot.PrimaryLockerRobot;
@@ -58,5 +59,36 @@ public class SuperLockerRobotTest {
 
         Bag expectBag = new Bag(Size.Large);
         robot.store(expectBag);
+    }
+
+    @Test
+    public void should_return_bag_when_robot_pickup_bag_given_valid_ticket() {
+        StorableFactory factory = new StorableFactory();
+        SuperLockerRobot robot = (SuperLockerRobot) factory.createStorable(Size.Large, 2);
+
+        Bag expectBag = new Bag(Size.Large);
+        Ticket ticket = robot.store(expectBag);
+
+        assertEquals(expectBag, robot.pickup(ticket));
+    }
+
+    @Test(expected = IncompatibleTicketTypeException.class)
+    public void should_throw_incompatible_when_robot_pickup_bag_given_ticket_size_incompatible_not_medium() {
+        StorableFactory factory = new StorableFactory();
+        SuperLockerRobot robot = (SuperLockerRobot) factory.createStorable(Size.Large, 2);
+
+        Ticket ticket = new Ticket(Size.SMALL);
+
+        robot.pickup(ticket);
+    }
+
+    @Test(expected = InvalidTicketException.class)
+    public void should_throw_invalid_ticket_when_robot_pickup_bag_given_invalid_ticket() {
+        StorableFactory factory = new StorableFactory();
+        SuperLockerRobot robot = (SuperLockerRobot) factory.createStorable(Size.Large, 2);
+
+        Ticket ticket = new Ticket(Size.Large);
+
+        robot.pickup(ticket);
     }
 }
