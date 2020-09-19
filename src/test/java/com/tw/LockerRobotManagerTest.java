@@ -20,4 +20,15 @@ public class LockerRobotManagerTest {
 
         assertNotNull(ticket);
     }
+
+    @Test(expected = LockerIsFullException.class)
+    public void should_throw_full_when_manager_save_bag_given_locker_full_and_small_bag() {
+        StorableFactory factory = new StorableFactory();
+        LockerRobotManager manager = factory.createManager();
+        for (int i = 0; i < Size.SMALL.capacity; i++) {
+            manager.store(new Bag(Size.SMALL));
+        }
+        manager.store(new Bag(Size.SMALL));
+
+    }
 }

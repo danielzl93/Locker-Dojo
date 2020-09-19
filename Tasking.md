@@ -28,7 +28,9 @@
 
 ## lockerRobotManager
 1. Given manager管理储存设备，例如一个locker，一个primaryLockerRobot，一个superLockerRobot，均有可用容量 When manager存包，Then 存包成功，返回票据
-2. Given manager管理储存设备，例如一个locker，一个primaryLockerRobot，一个superLockerRobot，有些设备无可用容量 When manager存包，Then 存包成功，存放至有可用容量的设备返回票据
+2. Given manager管理储存设备，例如一个locker，一个primaryLockerRobot，一个superLockerRobot，locker无可用容量，要存小包裹 When manager存包，Then 存包失败
+2. Given manager管理储存设备，例如一个locker，一个primaryLockerRobot，一个superLockerRobot，primaryLockerRobot的locker无可用容量，要存中包裹 When manager存包，Then 存包失败
+2. Given manager管理储存设备，例如一个locker，一个primaryLockerRobot，一个superLockerRobot，superLockerRobot的locker无可用容量，要存大包裹 When manager存包，Then 存包失败
 3. Given manager管理储存设备，例如一个locker，一个primaryLockerRobot，一个superLockerRobot，都存满了，When manager存包，Then 存包失败，提示locker已满
 4. Given manager管理储存设备，例如一个locker，一个primaryLockerRobot，一个superLockerRobot，拿到一张有效的票; When manager取包; Then 取包成功
 5. Given manager管理储存设备，例如一个locker，一个primaryLockerRobot，一个superLockerRobot，拿到一张无效票; When manager取包; Then 取包失败，无效票据异常
